@@ -754,43 +754,95 @@
                 <div class="process-flow" style="display: flex; flex-direction: column; gap: 30px; align-items: center;">
                     <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
                         <div style="min-height: 300px; margin-bottom: 15px;">
-                            <img src="paso 1.png" alt="Paso 1" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                            <img src="circuito electrico 1.png" alt="Paso 1" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
                         </div>
                         <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 1 – Preparar la base</h4>
-                        <p style="color: #666; font-size: 1em;">Se cortan las bocas de los bidones, se marcan y perforan los agujeros para la bomba, y se suavizan los bordes con calor para evitar cortes.</p>
+                        <p style="color: #666; font-size: 1em;">Se colocan todos los componentes sobre la superficie de trabajo: el Arduino Uno, el módulo relé KS2E-M-DC5, el sensor de humedad de suelo, una batería de 9V, un motor DC, una protoboard y los cables de conexión. En este punto no se realiza ninguna conexión, simplemente se posicionan los elementos de manera ordenada para comenzar el armado.</p>
                     </div>
                     
                     <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
                         <div style="min-height: 300px; margin-bottom: 15px;">
-                            <img src="paso 2.png" alt="Paso 2" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                            <img src="circuito electrico 2.png" alt="Paso 2" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
                         </div>
-                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 2 – Instalar la bomba</h4>
-                        <p style="color: #666; font-size: 1em;">Se coloca la bomba de agua dentro del bidón, alineando los agujeros, y se fija con silicona caliente para sellar y evitar fugas.</p>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 2</h4>
+                        <p style="color: #666; font-size: 1em;">Se inicia la conexión del sistema de potencia uniendo el polo positivo de la batería de 9V a uno de los terminales del relé. A continuación, se conecta el cable rojo del motor DC al terminal “Normalmente Abierto” (NO) del relé, lo que permitirá que el motor reciba corriente solo cuando el relé se active.</p>
                     </div>
                     
                     <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
                         <div style="min-height: 300px; margin-bottom: 15px;">
-                            <img src="paso 3.png" alt="Paso 3" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                            <img src="circuito electrico 3.png" alt="Paso 3" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
                         </div>
-                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 3 – Colocar la malla metálica</h4>
-                        <p style="color: #666; font-size: 1em;">Se corta la malla dejando un borde extra, se hace una abertura para el sensor de humedad y se fija al bidón con silicona caliente.</p>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 3</h4>
+                        <p style="color: #666; font-size: 1em;">Se completa el circuito del motor conectando un cable entre el pin común (COM) del relé y el otro terminal del motor. Luego, se conecta el cable negro del motor directamente al polo negativo de la batería de 9V, de modo que el motor esté listo para funcionar una vez que el relé cierre el circuito.</p>
                     </div>
                     
                     <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
                         <div style="min-height: 300px; margin-bottom: 15px;">
-                            <img src="paso 4.png" alt="Paso 4" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                            <img src="circuito electrico 4.png" alt="Paso 4" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
                         </div>
-                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 4 – Fijar el sistema de filtrado</h4>
-                        <p style="color: #666; font-size: 1em;">Se introduce el filtro de carbón activado en su carcasa, se colocan los conectores y se sellan las roscas con cinta de teflón.</p>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 4</h4>
+                        <p style="color: #666; font-size: 1em;">Se establece el control del relé desde el Arduino mediante la conexión de un cable entre el pin digital 6 del Arduino y el pin de control del relé, lo que permitirá que el microcontrolador envíe señales para activar o desactivar el relé según el estado de humedad que detecte el sensor.</p>
                     </div>
                     
                     <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
                         <div style="min-height: 300px; margin-bottom: 15px;">
-                            <img src="paso 5.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                            <img src="circuito electrico 5.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
                         </div>
-                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 5 – Ensamblar las conexiones</h4>
-                        <p style="color: #666; font-size: 1em;">Se une la bomba with el filtro usando adhesivo y teflón, se conecta la manguera a la salida y se dirige al segundo bidón receptor.</p>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 5 </h4>
+                        <p style="color: #666; font-size: 1em;">Se alimenta el módulo relé desde el Arduino conectando su pin VCC al riel positivo de la protoboard, el cual está vinculado al pin de 5V del Arduino, y su pin GND al riel negativo, que se conecta al GND del Arduino, asegurando así que el relé reciba la tensión necesaria para operar correctamente.</p>
                     </div>
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="circuito electrico 6.png" alt="Paso 4" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 6</h4>
+                        <p style="color: #666; font-size: 1em;">Finalmente, se comienza a integrar el sensor de humedad del suelo conectando su salida analógica (A0) al pin A0 del Arduino. Aunque en esta etapa aún no se conectan los pines de alimentación del sensor, ya se indica su participación dentro del sistema de control que regulará el encendido del motor.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="circuito electrico 7.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 7</h4>
+                        <p style="color: #666; font-size: 1em;">Se procede a conectar el pin GND del sensor de humedad al riel negativo de la protoboard, el cual está conectado al GND del Arduino. Esto asegura que el sensor comparta la misma referencia de tierra que el resto del sistema.</p>
+                    </div>
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="circuito electrico 8.png" alt="Paso 4" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 8</h4>
+                        <p style="color: #666; font-size: 1em;">A continuación, se conecta el pin VCC del sensor de humedad al riel positivo de la protoboard, el cual recibe alimentación desde el pin de 5V del Arduino. Con esta conexión, el sensor ya se encuentra completamente alimentado y listo para operar.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="circuito electrico 9.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 9</h4>
+                        <p style="color: #666; font-size: 1em;">Se realiza una verificación visual del circuito completo para asegurarse de que todas las conexiones estén bien ubicadas y no haya errores de polaridad o pines mal conectados. Esta etapa es fundamental antes de energizar el sistema.</p>
+                    </div>
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="circuito electrico 10.png" alt="Paso 4" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 10</h4>
+                        <p style="color: #666; font-size: 1em;">Se conecta el Arduino a la computadora mediante el cable USB para cargar el programa que controlará el sistema. Este programa deberá leer el valor del sensor y activar el relé cuando la humedad esté por debajo del umbral definido.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="circuito electrico 11.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 11</h4>
+                        <p style="color: #666; font-size: 1em;">Una vez cargado el programa, se monitorea el comportamiento del sistema: cuando el sensor detecta baja humedad, el Arduino activa el relé, cerrando el circuito del motor y permitiendo que se encienda para regar.</p>
+                    </div>
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="circuito electrico 12.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 12</h4>
+                        <p style="color: #666; font-size: 1em;">Cuando la humedad del suelo alcanza el nivel adecuado, el Arduino desactiva el relé, abriendo el circuito del motor y deteniendo el riego automáticamente. De este modo, se logra un sistema de riego automático eficiente y controlado.</p>
+                    </div>                                                                                
                 </div>
 
                 <!-- Notas importantes -->
@@ -823,10 +875,9 @@
                     <p>Asegurándonos de que todo funciona correctamente</p>
                 </div>
 
-                <div class="photo-placeholder">
-                    <div class="photo-icon">📸</div>
-                    <p>Foto del proyecto durante las pruebas<br>Documenta el proceso de verificación</p>
-                </div>
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="imagen de prueba.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
 
                 <div class="instruction-box">
                     <h4>✅ Lista de Verificación</h4>
@@ -838,14 +889,7 @@
                     </ul>
                 </div>
 
-                <div class="results-section">
-                    <h4>📊 Resultados de las Pruebas</h4>
-                    <div class="photo-placeholder">
-                        <div class="photo-icon">📸</div>
-                        <p>Captura de los resultados obtenidos</p>
-                    </div>
-                    <p>Aquí puedes documentar los resultados de tus pruebas, incluyendo mediciones, observaciones y cualquier problema encontrado.</p>
-                </div>
+
             </div>
 
             <!-- Step 6: Finalization -->
@@ -856,10 +900,9 @@
                     <p>¡Tu proyecto está listo!</p>
                 </div>
 
-                <div class="photo-placeholder">
-                    <div class="photo-icon">📸</div>
-                    <p>Foto final del proyecto completado<br>¡Muestra tu obra maestra terminada!</p>
-                </div>
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="imagen de prueba.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
 
                 <div class="results-section">
                     <h3>🏆 Proyecto Completado</h3>
@@ -886,7 +929,7 @@
 
                 <div class="tip-box">
                     <h4>🔮 Próximos Pasos</h4>
-                    <p>Ahora que has completado tu proyecto, considera estas mejoras o variaciones que podrías implementar en el futuro.</p>
+                    <p>Ahora que has completado tu proyecto, considera conectarle un panel solar para que funcione con energia Sustentable.</p>
                 </div>
             </div>
         </div>
@@ -932,14 +975,32 @@
                 `Paso ${currentStep} de ${totalSteps} (${Math.round(progressPercentage)}% completado)`;
         }
 
-        function shareProject() {
-            alert('¡Genial! Aquí podrías integrar opciones para compartir en redes sociales o por email.');
-        }
 
-        function downloadGuide() {
-            alert('Funcionalidad para descargar una versión PDF de la guía. ¡Muy útil para tener offline!');
-        }
-
+function shareProject() {
+    // Obtener la URL actual de la página
+    const currentUrl = window.location.href;
+    
+    // Crear el mensaje con el link
+    const shareMessage = `¡Mira este proyecto!\n\nLink para compartir:\n${currentUrl}`;
+    
+    // Mostrar el link en un alert (opción simple)
+    alert(shareMessage);
+    
+    // Opcional: Copiar automáticamente al portapapeles
+    navigator.clipboard.writeText(currentUrl).then(() => {
+        console.log('Link copiado al portapapeles');
+    }).catch(() => {
+        console.log('No se pudo copiar automáticamente');
+    });
+}
+function downloadGuide() {
+    const link = document.createElement('a');
+    link.href = 'paso a paso decantador.pdf';  // Tu archivo PDF
+    link.download = 'paso a paso decantador.pdf';  // Nombre de descarga
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
         // Initialize progress
         updateProgress();
 
