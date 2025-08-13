@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Proyecto - Guía Paso a Paso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 0;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="water" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%234FC3F7;stop-opacity:1" /><stop offset="100%" style="stop-color:%2329B6F6;stop-opacity:1" /></linearGradient></defs><path d="M0,200 Q300,100 600,200 T1200,200 L1200,600 L0,600 Z" fill="url(%23water)" opacity="0.3"/></svg>');
+            background-size: cover;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            color: white;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(255,255,255,0.6); }
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .project-overview {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .overview-card {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(79,195,247,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .overview-icon {
+            font-size: 2.5em;
+            color: #4FC3F7;
+            margin-bottom: 10px;
+        }
+
+        .step-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .step-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .step-btn:hover::before {
+            left: 100%;
+        }
+
+        .step-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .step-btn.active {
+            background: linear-gradient(45deg, #4FC3F7, #29B6F6);
+            transform: scale(1.05);
+        }
+
+        .step-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(79,195,247,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(45deg, #4FC3F7, #29B6F6);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .materials-section {
+            margin: 30px 0;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .material-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #4FC3F7;
+        }
+
+        .material-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-placeholder {
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            border: 2px dashed #4FC3F7;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-placeholder:hover {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d0e8f0 100%);
+            border-color: #29B6F6;
+            transform: scale(1.02);
+        }
+
+        .photo-icon {
+            font-size: 3em;
+            color: #4FC3F7;
+            margin-bottom: 10px;
+        }
+
+        .photo-placeholder p {
+            color: #666;
+            font-style: italic;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .instruction-box {
+            background: rgba(79,195,247,0.1);
+            border-left: 4px solid #4FC3F7;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .warning-box {
+            background: rgba(255,193,7,0.1);
+            border-left: 4px solid #FFC107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .tip-box {
+            background: rgba(76,175,80,0.1);
+            border-left: 4px solid #4CAF50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 10px;
+            min-width: 150px;
+            transition: transform 0.3s ease;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: #4FC3F7;
+            margin: 0 10px;
+            animation: flow 1s ease-in-out infinite;
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(0px); opacity: 1; }
+            50% { transform: translateX(10px); opacity: 0.5; }
+            100% { transform: translateX(0px); opacity: 1; }
+        }
+
+        .results-section {
+            background: linear-gradient(135deg, rgba(76,175,80,0.1) 0%, rgba(79,195,247,0.1) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #4CAF50;
+        }
+
+        .result-highlight {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .progress-tracker {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 20px;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #4FC3F7, #29B6F6);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .cta-section {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .cta-button {
+            background: white;
+            color: #FF6B6B;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .overview-grid,
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🚀 Mi Proyecto Increíble</h1>
+            <p>Una guía completa paso a paso para crear algo extraordinario</p>
+        </div>
+
+        <!-- Project Overview -->
+        <div class="project-overview">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #333;">📋 Resumen del Proyecto</h2>
+            
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-icon">⏱️</div>
+                    <h3>Tiempo Estimado</h3>
+                    <p>2-4 horas</p>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-icon">💰</div>
+                    <h3>Costo Aproximado</h3>
+                    <p>$50 - $100</p>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-icon">⚡</div>
+                    <h3>Dificultad</h3>
+                    <p>Intermedio</p>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-icon">🛠️</div>
+                    <h3>Herramientas</h3>
+                    <p>Básicas</p>
+                </div>
+            </div>
+
+            <div class="photo-placeholder">
+                <div class="photo-icon">📸</div>
+                <p>Imagen principal del proyecto terminado<br>¡Muestra aquí el resultado final!</p>
+            </div>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="progress-tracker">
+            <h3>📊 Progreso del Proyecto</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%;"></div>
+            </div>
+            <p id="progressText">Comenzando... (0% completado)</p>
+        </div>
+
+        <!-- Step Navigation -->
+        <div class="step-container">
+            <div class="step-nav">
+                <button class="step-btn active" onclick="showStep(1)">Paso 1: Materiales</button>
+                <button class="step-btn" onclick="showStep(2)">Paso 2: Preparación</button>
+                <button class="step-btn" onclick="showStep(3)">Paso 3: Construcción</button>
+                <button class="step-btn" onclick="showStep(4)">Paso 4: Ensamblaje</button>
+                <button class="step-btn" onclick="showStep(5)">Paso 5: Pruebas</button>
+                <button class="step-btn" onclick="showStep(6)">Paso 6: Finalización</button>
+            </div>
+
+            <!-- Step 1: Materials -->
+            <div class="step-content active" id="step1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h2>📦 Materiales y Herramientas</h2>
+                    <p>Todo lo que necesitas para comenzar tu proyecto</p>
+                </div>
+
+<div class="materials-section">
+                    <h3>🧰 Lista de Materiales</h3>
+                    <div class="materials-grid">
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="bidon de agua.png" alt="Bidon de agua" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Bidon de Agua</h4>
+                            <p>Bidon de Agua reciclado de 6L.</p>
+                            <span class="result-highlight">Cantidad: 2 unidades</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="Carcasa Porta Filtro 10 14 Purificador Agua.png" alt="Carcasa" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Carcasa Porta Filtro</h4>
+                            <p>Carcasa Porta Filtro 10 14 Purificador Agua.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="Filtro Carbón Activado Agua Cto 5 Micrones 10x2,5 Osmosis.png" alt="Filtro" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Filtro Carbón Activado</h4>
+                            <p>Filtro Carbón Activado Agua Cto 5 Micrones 10x2,5 Osmosis.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="Conector Filtro Agua Recto Rosca Macho 14 Acople Rápido 14.png" alt="Conector" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Conector Filtro Agua</h4>
+                            <p>Conector Filtro Agua Recto Rosca Macho 14 Acople Rápido 14.</p>
+                            <span class="result-highlight">Cantidad: 2 unidades</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="Manguera Para Dispensers O Purificadores De Agua 14 1 Metro.png" alt="Manguera" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Manguera</h4>
+                            <p>Manguera Para Dispensers O Purificadores De Agua 1/4 1 Metro.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="Tela Tejido Mosquitero Metalico Metal .png" alt="Malla Metalica" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Malla Metalica</h4>
+                            <p>Tela Tejido Mosquitero Metalico Metal 40x40.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="Pistola de silicona.png" alt="Pistola De silicona" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Pistola de silicona</h4>
+                            <p>Pistola Encoladora Silicona + Barras.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="teflon.png" alt="teflon" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Cinta De Teflón</h4>
+                            <p>Cinta De Teflón 3/4 Pulgadas X10 Mts.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="encendedor.png" alt="Encendedor" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Encendedor</h4>
+                            <p>Encendedor.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="gotita.png" alt="La Gotita" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>La Gotita</h4>
+                            <p>La Gotita Adhesivo Instantáneo 2ml.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="tijeras.png" alt="tiejras" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Tijera</h4>
+                            <p>Tijera Maped Essential Green - 21 Cm Asimétrica Negro.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="bomba de agua.png" alt="Bomba De Agua" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Bomba De Agua Sumergible</h4>
+                            <p>Mini Bomba De Agua Sumergible 2l/m 3v 5v Dc Arduino.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>
+
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="rele.png" alt="Rele" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Rele De 1 Canal</h4>
+                            <p>Modulo Relay Rele De 1 Canal 5v 10a Compatible con Arduino Avr.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>     
+ 
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="sensor de humedad.png" alt="Sensor De Humedad" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Sensor De Humedad</h4>
+                            <p>Modulo Sensor De Humedad De Suelo Tierra Compatible con Arduino Higrometro.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>   
+ 
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="protoboard.png" alt="Protoboard" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Protoboard</h4>
+                            <p>Protoboard Experimental 400 Puntos 83x55 Arduino Electronica.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>   
+ 
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="arduino uno.png" alt="Arduino Uno" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Arduino Uno R3</h4>
+                            <p>Placa Programación Compatible Arduino Uno R3 Smd Atmega328.</p>
+                            <span class="result-highlight">Cantidad: 1 unidad</span>
+                        </div>      
+ 
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="dupont macho macho.png" alt="Dupont MM" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Cables Para Protoboard Macho Macho</h4>
+                            <p>Cables Para Protoboard Macho Macho 20 Cm Dupont Arduino</p>
+                            <span class="result-highlight">Cantidad: 10 unidades</span>
+                        </div>    
+ 
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="dupont hembra hembra.png" alt="Dupont HH" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Cables Para Protoboard Hembra Hembra</h4>
+                            <p>Pack Cables Dupont Para Arduino Hembra Hembra 20cm.</p>
+                            <span class="result-highlight">Cantidad: 10 unidades</span>
+                        </div>   
+ 
+                        <div class="material-card">
+                           <div style="min-height: 150px;">
+                            <img src="dupont macho hembra.png" alt="Material Principal" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                           </div>
+                            <h4>Cables Para Protoboard Macho Hembra</h4>
+                            <p>Pack 40 Cables Macho Hembra 20cm Dupont Arduino Y Protoboard.</p>
+                            <span class="result-highlight">Cantidad: 10 unidades</span>
+                        </div>                                                                                                                                                                                      
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 Consejo Útil</h4>
+                    <p>Antes de comenzar, asegúrate de tener todos los materiales organizados y al alcance. Esto te ahorrará tiempo durante la construcción.</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Preparation -->
+            <div class="step-content" id="step2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h2>🔧 Preparación del Espacio</h2>
+                    <p>Organizando todo para un trabajo eficiente</p>
+                </div>
+
+                <div class="photo-placeholder">
+                    <div class="photo-icon">📸</div>
+                    <p>Foto del espacio de trabajo preparado<br>Muestra tu área de trabajo organizada</p>
+                </div>
+
+                <div class="instruction-box">
+                    <h4>📋 Instrucciones de Preparación</h4>
+                    <ol>
+                        <li>Limpia y despeja tu área de trabajo</li>
+                        <li>Organiza las herramientas por orden de uso</li>
+                        <li>Prepara un espacio para los materiales</li>
+                        <li>Asegúrate de tener buena iluminación</li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Precauciones de Seguridad</h4>
+                    <p>Recuerda usar equipo de protección personal si es necesario. La seguridad siempre es lo primero.</p>
+                </div>
+            </div>
+
+            <!-- Step 3: Construction -->
+            <div class="step-content" id="step3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h2>🏗️ Proceso de Construcción</h2>
+                    <p>Comenzamos a dar forma a nuestro proyecto</p>
+                </div>
+
+<div class="process-flow" style="display: flex; flex-direction: column; gap: 30px; align-items: center;">
+    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+        <div style="min-height: 300px; margin-bottom: 15px;">
+            <img src="paso 1.png" alt="Paso 1" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        </div>
+        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 1 – Preparar la base</h4>
+        <p style="color: #666; font-size: 1em;">Se cortan las bocas de los bidones, se marcan y perforan los agujeros para la bomba, y se suavizan los bordes con calor para evitar cortes.</p>
+    </div>
+    
+    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+        <div style="min-height: 300px; margin-bottom: 15px;">
+            <img src="paso 2.png" alt="Paso 2" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        </div>
+        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 2 – Instalar la bomba</h4>
+        <p style="color: #666; font-size: 1em;">Se coloca la bomba de agua dentro del bidón, alineando los agujeros, y se fija con silicona caliente para sellar y evitar fugas.</p>
+    </div>
+    
+    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+        <div style="min-height: 300px; margin-bottom: 15px;">
+            <img src="paso 3.png" alt="Paso 3" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        </div>
+        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 3 – Colocar la malla metálica</h4>
+        <p style="color: #666; font-size: 1em;">Se corta la malla dejando un borde extra, se hace una abertura para el sensor de humedad y se fija al bidón con silicona caliente.</p>
+    </div>
+    
+    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+        <div style="min-height: 300px; margin-bottom: 15px;">
+            <img src="paso 4.png" alt="Paso 4" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        </div>
+        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 4 – Fijar el sistema de filtrado</h4>
+        <p style="color: #666; font-size: 1em;">Se introduce el filtro de carbón activado en su carcasa, se colocan los conectores y se sellan las roscas con cinta de teflón.</p>
+    </div>
+    
+    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+        <div style="min-height: 300px; margin-bottom: 15px;">
+            <img src="paso 5.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        </div>
+        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 5 – Ensamblar las conexiones</h4>
+        <p style="color: #666; font-size: 1em;">Se une la bomba con el filtro usando adhesivo y teflón, se conecta la manguera a la salida y se dirige al segundo bidón receptor.</p>
+    </div>
+</div>
+
+                <div class="instruction-box">
+                    <h4>🔨 Instrucciones Detalladas</h4>
+                    <p>Aquí puedes agregar explicaciones detalladas de cada subpaso del proceso de construcción. Incluye medidas exactas, técnicas específicas y cualquier detalle importante.</p>
+                </div>
+            </div>
+
+ <!-- Step 4: Assembly -->
+            <div class="step-content" id="step4">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h2>🔗 Ensamblaje Final</h2>
+                    <p>Uniendo todas las piezas del proyecto</p>
+                </div>
+
+                <div class="process-flow" style="display: flex; flex-direction: column; gap: 30px; align-items: center;">
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="paso 1.png" alt="Paso 1" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 1 – Preparar la base</h4>
+                        <p style="color: #666; font-size: 1em;">Se cortan las bocas de los bidones, se marcan y perforan los agujeros para la bomba, y se suavizan los bordes con calor para evitar cortes.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="paso 2.png" alt="Paso 2" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 2 – Instalar la bomba</h4>
+                        <p style="color: #666; font-size: 1em;">Se coloca la bomba de agua dentro del bidón, alineando los agujeros, y se fija con silicona caliente para sellar y evitar fugas.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="paso 3.png" alt="Paso 3" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 3 – Colocar la malla metálica</h4>
+                        <p style="color: #666; font-size: 1em;">Se corta la malla dejando un borde extra, se hace una abertura para el sensor de humedad y se fija al bidón con silicona caliente.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="paso 4.png" alt="Paso 4" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 4 – Fijar el sistema de filtrado</h4>
+                        <p style="color: #666; font-size: 1em;">Se introduce el filtro de carbón activado en su carcasa, se colocan los conectores y se sellan las roscas con cinta de teflón.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="width: 100%; max-width: 600px; text-align: center;">
+                        <div style="min-height: 300px; margin-bottom: 15px;">
+                            <img src="paso 5.png" alt="Paso 5" style="width: 100%; height: 300px; object-fit: cover; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                        </div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 8px;">Paso 5 – Ensamblar las conexiones</h4>
+                        <p style="color: #666; font-size: 1em;">Se une la bomba with el filtro usando adhesivo y teflón, se conecta la manguera a la salida y se dirige al segundo bidón receptor.</p>
+                    </div>
+                </div>
+
+                <!-- Notas importantes -->
+                <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; border-left: 4px solid #007bff;">
+                    <h3 style="margin-bottom: 15px; color: #007bff;">📝 Notas importantes</h3>
+                    <ul style="color: #495057; line-height: 1.6;">
+                        <li>Verificar que todas las conexiones estén bien selladas antes del uso</li>
+                        <li>Probar el sistema con agua limpia antes de la instalación final</li>
+                        <li>Mantener las herramientas de seguridad a mano durante todo el proceso</li>
+                        <li>Revisar el manual de la bomba para especificaciones eléctricas</li>
+                    </ul>
+                </div>
+
+                <!-- Botones de navegación -->
+                <div style="display: flex; justify-content: space-between; margin-top: 40px; gap: 15px;">
+                    <button onclick="showStep(3)" style="padding: 12px 24px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+                        ← Paso Anterior
+                    </button>
+                    <button onclick="showStep(5)" style="padding: 12px 24px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s;">
+                        Siguiente Paso →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Testing -->
+            <div class="step-content" id="step5">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <h2>🧪 Pruebas y Verificación</h2>
+                    <p>Asegurándonos de que todo funciona correctamente</p>
+                </div>
+
+                <div class="photo-placeholder">
+                    <div class="photo-icon">📸</div>
+                    <p>Foto del proyecto durante las pruebas<br>Documenta el proceso de verificación</p>
+                </div>
+
+                <div class="instruction-box">
+                    <h4>✅ Lista de Verificación</h4>
+                    <ul>
+                        <li>Verificar todas las conexiones</li>
+                        <li>Probar funcionalidad básica</li>
+                        <li>Revisar estabilidad estructural</li>
+                        <li>Confirmar especificaciones técnicas</li>
+                    </ul>
+                </div>
+
+                <div class="results-section">
+                    <h4>📊 Resultados de las Pruebas</h4>
+                    <div class="photo-placeholder">
+                        <div class="photo-icon">📸</div>
+                        <p>Captura de los resultados obtenidos</p>
+                    </div>
+                    <p>Aquí puedes documentar los resultados de tus pruebas, incluyendo mediciones, observaciones y cualquier problema encontrado.</p>
+                </div>
+            </div>
+
+            <!-- Step 6: Finalization -->
+            <div class="step-content" id="step6">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <h2>🎉 Finalización y Resultados</h2>
+                    <p>¡Tu proyecto está listo!</p>
+                </div>
+
+                <div class="photo-placeholder">
+                    <div class="photo-icon">📸</div>
+                    <p>Foto final del proyecto completado<br>¡Muestra tu obra maestra terminada!</p>
+                </div>
+
+                <div class="results-section">
+                    <h3>🏆 Proyecto Completado</h3>
+                    <div class="result-highlight">¡Felicitaciones por tu logro!</div>
+                    
+                    <div class="overview-grid" style="margin-top: 30px;">
+                        <div class="overview-card">
+                            <div class="overview-icon">⚡</div>
+                            <h4>Rendimiento</h4>
+                            <p>Excelente funcionamiento según especificaciones</p>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-icon">💡</div>
+                            <h4>Innovación</h4>
+                            <p>Solución creativa y eficiente</p>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-icon">🎯</div>
+                            <h4>Objetivos</h4>
+                            <p>Todos los objetivos alcanzados</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🔮 Próximos Pasos</h4>
+                    <p>Ahora que has completado tu proyecto, considera estas mejoras o variaciones que podrías implementar en el futuro.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2>¿Te gustó este proyecto? 🚀</h2>
+            <p>Comparte tu experiencia y muestra tus resultados con la comunidad</p>
+            <button class="cta-button" onclick="shareProject()">Compartir Mi Proyecto</button>
+            <button class="cta-button" onclick="downloadGuide()">Descargar Guía PDF</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        function showStep(stepNumber) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step${i}`).classList.remove('active');
+                document.querySelector(`.step-btn:nth-child(${i})`).classList.remove('active');
+            }
+            
+            // Show selected step
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+            document.querySelector(`.step-btn:nth-child(${stepNumber})`).classList.add('active');
+            
+            currentStep = stepNumber;
+            updateProgress();
+            
+            // Smooth scroll to step container
+            document.querySelector('.step-container').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function updateProgress() {
+            const progressPercentage = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progressPercentage + '%';
+            document.getElementById('progressText').textContent = 
+                `Paso ${currentStep} de ${totalSteps} (${Math.round(progressPercentage)}% completado)`;
+        }
+
+        function shareProject() {
+            alert('¡Genial! Aquí podrías integrar opciones para compartir en redes sociales o por email.');
+        }
+
+        function downloadGuide() {
+            alert('Funcionalidad para descargar una versión PDF de la guía. ¡Muy útil para tener offline!');
+        }
+
+        // Initialize progress
+        updateProgress();
+
+        // Add click handlers for photo placeholders
+        document.addEventListener('DOMContentLoaded', function() {
+            const photoPlaceholders = document.querySelectorAll('.photo-placeholder');
+            photoPlaceholders.forEach(placeholder => {
+                placeholder.addEventListener('click', function() {
+                    alert('Aquí podrías añadir funcionalidad para subir imágenes o mostrar una galería.');
+                });
+            });
+             });
+
+        // Auto-advance functionality
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                showStep(currentStep + 1);
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                nextStep();
+                event.preventDefault();
+            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                previousStep();
+                event.preventDefault();
+            }
+        });
+
+        // Add navigation buttons to each step
+        function addNavigationButtons() {
+            const stepContents = document.querySelectorAll('.step-content');
+            stepContents.forEach((stepContent, index) => {
+                const stepNumber = index + 1;
+                const navContainer = document.createElement('div');
+                navContainer.className = 'step-navigation';
+                navContainer.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 30px;
+                    padding: 20px 0;
+                    border-top: 2px solid #f0f0f0;
+                `;
+
+                const prevButton = document.createElement('button');
+                prevButton.className = 'nav-btn prev-btn';
+                prevButton.innerHTML = '← Paso Anterior';
+                prevButton.style.cssText = `
+                    background: linear-gradient(45deg, #6c757d, #5a6268);
+                    color: white;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-size: 1em;
+                    transition: all 0.3s ease;
+                    ${stepNumber === 1 ? 'opacity: 0.5; cursor: not-allowed;' : ''}
+                `;
+                prevButton.addEventListener('click', previousStep);
+                if (stepNumber === 1) {
+                    prevButton.disabled = true;
+                }
+
+                const nextButton = document.createElement('button');
+                nextButton.className = 'nav-btn next-btn';
+                nextButton.innerHTML = stepNumber === totalSteps ? 'Proyecto Completo 🎉' : 'Siguiente Paso →';
+                nextButton.style.cssText = `
+                    background: linear-gradient(45deg, #4FC3F7, #29B6F6);
+                    color: white;
+                    border: none;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-size: 1em;
+                    transition: all 0.3s ease;
+                    ${stepNumber === totalSteps ? 'background: linear-gradient(45deg, #4CAF50, #45a049);' : ''}
+                `;
+                nextButton.addEventListener('click', stepNumber === totalSteps ? celebrateCompletion : nextStep);
+
+                navContainer.appendChild(prevButton);
+                navContainer.appendChild(nextButton);
+                stepContent.appendChild(navContainer);
+            });
+        }
+
+        function celebrateCompletion() {
+            // Add celebration animation
+            const hero = document.querySelector('.hero');
+            hero.style.animation = 'celebration 2s ease-in-out';
+            
+            // Add confetti effect
+            createConfetti();
+            
+            // Show completion message
+            setTimeout(() => {
+                alert('🎉 ¡Felicitaciones! Has completado todo el proyecto. ¡Excelente trabajo!');
+            }, 1000);
+        }
+
+        function createConfetti() {
+            const colors = ['#4FC3F7', '#29B6F6', '#4CAF50', '#FF6B6B', '#FFC107'];
+            const confettiContainer = document.createElement('div');
+            confettiContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 1000;
+            `;
+            document.body.appendChild(confettiContainer);
+
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.cssText = `
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    top: -10px;
+                    left: ${Math.random() * 100}%;
+                    transform: rotate(${Math.random() * 360}deg);
+                    animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
+                `;
+                confettiContainer.appendChild(confetti);
+            }
+
+            // Remove confetti after animation
+            setTimeout(() => {
+                document.body.removeChild(confettiContainer);
+            }, 5000);
+        }
+
+        // Add CSS for new animations
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes celebration {
+                0%, 100% { transform: scale(1) rotate(0deg); }
+                25% { transform: scale(1.1) rotate(-2deg); }
+                75% { transform: scale(1.1) rotate(2deg); }
+            }
+
+            @keyframes confettiFall {
+                0% {
+                    transform: translateY(-100vh) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+
+            .nav-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            }
+
+            .nav-btn:disabled:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            /* Enhanced mobile responsiveness */
+            @media (max-width: 480px) {
+                .step-navigation {
+                    flex-direction: column;
+                    gap: 15px;
+                }
+                
+                .nav-btn {
+                    width: 100%;
+                    text-align: center;
+                }
+                
+                .hero h1 {
+                    font-size: 2em;
+                }
+                
+                .step-nav {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                
+                .step-btn {
+                    width: 100%;
+                    max-width: 300px;
+                }
+            }
+
+            /* Print styles */
+            @media print {
+                .step-nav,
+                .cta-section,
+                .nav-btn {
+                    display: none;
+                }
+                
+                .step-content {
+                    display: block !important;
+                    page-break-after: always;
+                }
+                
+                .step-content:last-child {
+                    page-break-after: auto;
+                }
+                
+                body {
+                    background: white;
+                }
+                
+                .step-container,
+                .project-overview {
+                    box-shadow: none;
+                    background: white;
+                }
+            }
+
+            /* Accessibility improvements */
+            .step-btn:focus,
+            .nav-btn:focus,
+            .cta-button:focus {
+                outline: 3px solid #4FC3F7;
+                outline-offset: 2px;
+            }
+
+            /* Smooth transitions for all interactive elements */
+            * {
+                transition: all 0.3s ease;
+            }
+
+            /* Enhanced loading state */
+            .loading {
+                opacity: 0.7;
+                pointer-events: none;
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+
+        // Initialize navigation buttons
+        addNavigationButtons();
+
+        // Add progress persistence
+        function saveProgress() {
+            const progress = {
+                currentStep: currentStep,
+                timestamp: new Date().toISOString(),
+                completed: currentStep === totalSteps
+            };
+            // En un entorno real, aquí guardarías en localStorage
+            console.log('Progreso guardado:', progress);
+        }
+
+        // Save progress when step changes
+        const originalShowStep = showStep;
+        showStep = function(stepNumber) {
+            originalShowStep(stepNumber);
+            saveProgress();
+        };
+
+        // Add step completion tracking
+        function markStepComplete(stepNumber) {
+            const stepBtn = document.querySelector(`.step-btn:nth-child(${stepNumber})`);
+            if (stepBtn && !stepBtn.classList.contains('completed')) {
+                stepBtn.classList.add('completed');
+                stepBtn.innerHTML += ' ✅';
+                stepBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+            }
+        }
+
+        // Auto-mark previous steps as complete when advancing
+        const originalNextStep = nextStep;
+        nextStep = function() {
+            markStepComplete(currentStep);
+            originalNextStep();
+        };
+
+        console.log('🚀 Proyecto interactivo cargado completamente. Usa las flechas del teclado para navegar entre pasos.');
+    </script>
+</body>
+</html>
